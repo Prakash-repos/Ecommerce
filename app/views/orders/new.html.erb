@@ -1,0 +1,21 @@
+<%= form_for(@order) do |f| %>
+  <p>
+    <%= f.label :name %><br>
+    <%= f.text_field :name, required: true, autofocus: true %>
+  </p>
+  <p>
+    <%= f.label :email %><br>
+    <%= f.email_field :email %>
+  </p>
+  <p>
+    <%= f.label :address %><br>
+    <%= f.text_area :address %>
+  </p>
+  <p>
+    <%= f.label :pay_method %><br>
+    <%= f.select :pay_method, Visible::VALID_PAY_METHOD %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>

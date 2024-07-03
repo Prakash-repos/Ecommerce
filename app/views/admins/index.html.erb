@@ -1,0 +1,23 @@
+<h1>Products :</h1>
+
+<% @products.each do |product| %>
+	<div>
+		<%= image_tag product.image_url, style: "width: 100px; height: 100px" %>
+	</div>
+	<div>
+		Name: <%= product.name%>
+	</div>
+	<div>
+		Price: <%= number_to_currency(product.price, unit: "₹")%>
+	</div>
+
+	<p>
+    	<%= link_to "Edit", edit_product_path(product) %>
+    	<%= button_to "Delete", product_path(product), method: :delete, data: {confirm: "Are you sure?"} %>
+  	</p>
+	
+	<hr>
+
+<% end %>
+
+<%= link_to "New product", new_product_path %>

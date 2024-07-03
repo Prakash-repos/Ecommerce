@@ -1,0 +1,41 @@
+<div style="height: 100px; width: 100%; background-color: lightblue; display: flex; justify-content: flex-end; align-items: center; padding-right: 20px;">
+  <a href=<%= "/carts/#{@current_cart.id}" %> style="text-decoration: none;">
+    <button style="background-color: white; border: 1px solid #ccc; border-radius: 4px; padding: 10px 20px; font-size: 16px; cursor: pointer; transition: background-color 0.3s ease;">
+      Go to Cart
+    </button>
+  </a>
+</div>
+
+<% if user_signed_in? %>
+  <h1>Welcome Home, <%= current_user.email %></h1>
+  <%= link_to 'Sign out', destroy_user_session_path, data: { turbo_method: :delete } %>
+<% else %>
+  <h1>Home</h1>
+  <%= link_to 'Sign in', new_user_session_path %>
+<% end %>
+
+
+<%# <h2 style="text-align: center;">Products list</h2> %>
+<h2>Product List</h2>
+<% @products.each do |product| %>
+
+  <div>
+    <a href="/products/<%= product.id%>">
+      <%= image_tag product.image_url, style: "width: 100px; height: 100px" %>
+    </a>
+  </div>
+
+  <div>
+  	<a href="/products/<%= product.id%>">
+      Name : <%= product.name %>
+    </a>
+  </div>
+
+  <div>
+  	Price : <%= number_to_currency(product.price, unit: "₹")%>
+  </div>
+  <p>
+    <%= button_to "Add #{product.name} to cart", line_items_path(:product_id => product.id) %>
+  </p>
+  <hr>
+<% end%>
